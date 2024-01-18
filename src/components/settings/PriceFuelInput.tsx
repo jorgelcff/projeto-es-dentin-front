@@ -1,17 +1,18 @@
-import { View, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import Input from "./Input";
+import { TextInputProps } from "react-native";
 
-interface InputWithTitleSubtitleProps extends TextInputProps {
+interface PriceFuelInputProps extends TextInputProps {
   TextTitle: string;
   TextSubtitle: string;
-  InputPlaceHolder: string;
+  fixedPriceState: any;
 }
 
 const InputWithTitleSubtitleStyle = styled.View`
   background-color: ${Constants.colors.gray[0]};
   margin-top: 8px;
+  max-width: 500px;
 `;
 
 const Title = styled.Text`
@@ -28,21 +29,23 @@ const Subtitle = styled.Text`
   margin-bottom: 16px;
 `;
 
-export default function InputWithTitleSubtitle({
+export default function PriceFuelInput({
   TextTitle,
   TextSubtitle,
-  InputPlaceHolder,
+  fixedPriceState,
   ...props
-}: InputWithTitleSubtitleProps) {
+}: PriceFuelInputProps) {
+  const { fixedPriceFuel, setFixedPriceFuel } = fixedPriceState;
   return (
-    <InputWithTitleSubtitleStyle>
+    <InputWithTitleSubtitleStyle {...props}>
       <Title>{TextTitle}</Title>
       <Subtitle>{TextSubtitle}</Subtitle>
       <Input
-        placeholder={InputPlaceHolder}
-        marginBottom={24}
-        color={Constants.inputConfig.Ontouch.Settings.Color}
-        {...props}
+        fixedPriceState={fixedPriceState}
+        SufixValue={"/ litro"}
+        InputFormatter={
+          Constants.GasPriceInputFormatter as (value: string | number) => string
+        }
       />
     </InputWithTitleSubtitleStyle>
   );

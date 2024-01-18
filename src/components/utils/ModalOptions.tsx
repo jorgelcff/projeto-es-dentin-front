@@ -5,7 +5,7 @@ import { Text, View } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 // import CloseIcon from "../../assets/settings/close-icon.png";
-import ImageWrapper from "./ImageWrapper.component";
+import ImageWrapper from "./ImageWrapper";
 import { ButtonSecundaryDefault } from "./ButtonSecondaryDefault";
 import { TouchableWithoutFeedback } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";

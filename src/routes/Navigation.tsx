@@ -7,7 +7,9 @@ import LoginScreen from "../screens/Login/LoginScreen";
 import ForgotPasswordScreen from "../screens/ForgotPassword/ForgotPasswordScreen";
 import StartScreen from "../screens/Start/Start";
 import { TouchableWithoutFeedback } from "react-native";
-import ImageWrapper from "../components/utils/ImageWrapper.component";
+import ImageWrapper from "../components/utils/ImageWrapper";
+import RegisterScreen from "../screens/Register/RegisterScreen";
+import SecondRegisterScreen from "../screens/Register/SecondRegisterScreen";
 
 const Stack = createStackNavigator();
 
@@ -27,7 +29,7 @@ function AppNavigator() {
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper
-                style={{ cursor: "pointer" }}
+                // Remove the 'style' property with the 'cursor' value
                 width={24}
                 height={24}
                 source={require("../../assets/Home/close-icon.png")}
@@ -46,7 +48,7 @@ function AppNavigator() {
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper
-                style={{ cursor: "pointer" }}
+                // Remove the 'style' property with the 'cursor' value
                 width={24}
                 height={24}
                 source={require("../../assets/Home/close-icon.png")}
@@ -62,6 +64,43 @@ function AppNavigator() {
         options={{
           headerShown: false,
         }}
+      />
+
+      <Stack.Screen
+        name="Register"
+        component={RegisterScreen}
+        options={({ navigation }) => ({
+          headerTitle: "Criar uma conta",
+          title: "Criar uma conta",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper
+                // Remove the 'style' property with the 'cursor' value
+                width={24}
+                height={24}
+                source={require("../../assets/Home/close-icon.png")}
+              />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="SecondRegisterScreen"
+        component={SecondRegisterScreen}
+        options={({ navigation }) => ({
+          headerTitle: "Criar uma conta",
+          title: "Criar uma conta",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper
+                width={24}
+                height={24}
+                source={require("../../assets/Home/close-icon.png")}
+              />
+            </TouchableWithoutFeedback>
+          ),
+        })}
       />
     </Stack.Navigator>
   );

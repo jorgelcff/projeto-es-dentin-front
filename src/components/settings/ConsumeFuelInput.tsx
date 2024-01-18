@@ -1,17 +1,18 @@
-import { View, TextInputProps } from "react-native";
+import { StyleSheet, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import Input from "./Input";
 
-interface InputWithTitleSubtitleProps extends TextInputProps {
+interface ConsumeFuelInputProps extends TextInputProps {
   TextTitle: string;
   TextSubtitle: string;
-  InputPlaceHolder: string;
+  fixedPriceState: any;
 }
 
 const InputWithTitleSubtitleStyle = styled.View`
   background-color: ${Constants.colors.gray[0]};
   margin-top: 8px;
+  max-width: 500px;
 `;
 
 const Title = styled.Text`
@@ -28,21 +29,36 @@ const Subtitle = styled.Text`
   margin-bottom: 16px;
 `;
 
-export default function InputWithTitleSubtitle({
+const styles = StyleSheet.create({
+  inputContainer: {
+    borderWidth: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "white",
+    marginHorizontal: 10,
+    borderRadius: 10,
+  },
+  prefix: {
+    paddingHorizontal: 10,
+    fontWeight: "bold",
+    color: "black",
+  },
+});
+
+export default function ConsumeFuelInput({
   TextTitle,
   TextSubtitle,
-  InputPlaceHolder,
+  fixedPriceState,
   ...props
-}: InputWithTitleSubtitleProps) {
+}: ConsumeFuelInputProps) {
   return (
-    <InputWithTitleSubtitleStyle>
+    <InputWithTitleSubtitleStyle {...props}>
       <Title>{TextTitle}</Title>
       <Subtitle>{TextSubtitle}</Subtitle>
       <Input
-        placeholder={InputPlaceHolder}
-        marginBottom={24}
-        color={Constants.inputConfig.Ontouch.Settings.Color}
-        {...props}
+        fixedPriceState={fixedPriceState}
+        SufixValue={"km/L"}
+        InputFormatter={(value: string) => Constants.ConsumeInputFormatter(Number(value))}
       />
     </InputWithTitleSubtitleStyle>
   );

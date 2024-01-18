@@ -4,18 +4,9 @@ import { LogBox, Platform } from "react-native";
 import AppNavigator from "./Navigation";
 import * as Store from "../redux/store/store";
 import * as SecureStore from "expo-secure-store";
-import { getAuthTokenLogin } from "../helper/login/utils";
+import { LoginInfo } from "../types/LoginInfo";
 
 LogBox.ignoreLogs(["Require cycle:"]);
-
-type LoginInfo = {
-  login: string;
-  password: string;
-  authToken: string;
-  loginDate: string;
-  averageConsumption: string;
-  fuelPerLiter: string;
-};
 
 async function getValueFor(key: string) {
   let result;

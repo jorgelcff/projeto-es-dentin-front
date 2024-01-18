@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 // import GooglePlayImage from "../../../assets/Start/googe-play-image.png";
-import ImageWrapper from "../utils/ImageWrapper.component";
+import ImageWrapper from "../utils/ImageWrapper";
 import { View, TouchableHighlightProps } from "react-native";
 
 interface ButtonGooglePlayProps extends TouchableHighlightProps {
