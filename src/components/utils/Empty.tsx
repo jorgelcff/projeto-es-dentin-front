@@ -1,7 +1,7 @@
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
-import ImageWrapper from "./ImageWrapper.component";
-import { EmptyImage } from "../../assets/Home/Empty.png";
+// import ImageWrapper from "./ImageWrapper";
+// import { EmptyImage } from "../../assets/Home/Empty.png";
 
 interface EmptyProps {
   title: string;
@@ -31,7 +31,7 @@ const ContentView = styled.View`
 export default function Empty({ title, subtitle, ...props }: EmptyProps) {
   return (
     <ContentView>
-      <ImageWrapper source={EmptyImage} width={"185px"} height={"117px"} />
+      {/* <ImageWrapper source={EmptyImage} width={"185px"} height={"117px"} /> */}
       <Title>{title}</Title>
       <Subtitle>{subtitle}</Subtitle>
     </ContentView>

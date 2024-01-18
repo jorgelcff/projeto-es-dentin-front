@@ -3,7 +3,7 @@ import { Animated, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 // import CloseIcon from "../../../assets/Home/close-icon.png";
-import ImageWrapper from "./ImageWrapper.component";
+import ImageWrapper from "./ImageWrapper";
 
 type NotificationPopupProps = {
   title: string;

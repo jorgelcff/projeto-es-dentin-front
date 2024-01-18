@@ -1,15 +1,16 @@
-import { useEffect } from 'react';
-import styled from 'styled-components/native';
+import { useEffect } from "react";
+import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 // import ArrowRightWhite from "../../../assets/Button/arrow-right-white.png";
-import ImageWrapper from '../utils/ImageWrapper.component';
-import { TouchableHighlightProps, View } from 'react-native';
+import ImageWrapper from "../utils/ImageWrapper";
+import { TouchableHighlightProps, View } from "react-native";
 
 interface ButtonPrimaryDefaultWebProps extends TouchableHighlightProps {
   title: string;
 }
 const ButtonPrimaryDefaultStyle = styled.TouchableHighlight`
-  background-color: ${Constants.buttonConfig.Default.Primary.Default.BackgroundColor};
+  background-color: ${Constants.buttonConfig.Default.Primary.Default
+    .BackgroundColor};
   border-radius: ${Constants.buttonConfig.Default.Primary.Default.Radius};
   border-color: ${Constants.buttonConfig.Default.Primary.Default.BorderColor};
   border-width: ${Constants.buttonConfig.Default.Primary.Default.BorderWidth};
@@ -30,14 +31,22 @@ const ButtonText = styled.Text`
   align-self: center;
 `;
 
-export default function ButtonPrimaryDefaultWeb({ title, ...props }: ButtonPrimaryDefaultWebProps) {
-    return (
-        <ButtonPrimaryDefaultStyle {...props} underlayColor={Constants.buttonConfig.Ontouch.Primary.Default.BackgroundColor}>
-            {/* Touchable highlight can only receive one child (has to do this trick) */}
-            <>
-                <ButtonText>{title}</ButtonText>
-                {/* <ImageWrapper source={ArrowRightWhite} width={'20px'} height={'20px'} style={{alignSelf: 'center'}} /> */}
-            </>
-        </ButtonPrimaryDefaultStyle>
-    );
+export default function ButtonPrimaryDefaultWeb({
+  title,
+  ...props
+}: ButtonPrimaryDefaultWebProps) {
+  return (
+    <ButtonPrimaryDefaultStyle
+      {...props}
+      underlayColor={
+        Constants.buttonConfig.Ontouch.Primary.Default.BackgroundColor
+      }
+    >
+      {/* Touchable highlight can only receive one child (has to do this trick) */}
+      <>
+        <ButtonText>{title}</ButtonText>
+        {/* <ImageWrapper source={ArrowRightWhite} width={'20px'} height={'20px'} style={{alignSelf: 'center'}} /> */}
+      </>
+    </ButtonPrimaryDefaultStyle>
+  );
 }
