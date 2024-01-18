@@ -47,6 +47,8 @@ export const buttonConfig = {
         Radius: "8px",
         Padding: "16px",
         Color: colors.gray[0],
+        BorderColor: colors.primary[600],
+        BorderWidth: 1,
       },
       Small: {
         Width: "100%",
