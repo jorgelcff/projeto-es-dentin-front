@@ -3,7 +3,7 @@ import * as Constants from "../../constants/Constants";
 
 const TextMainStart = styled.Text`
   font-family: ${Constants.fontConfig.Body.Bold.FontFamily};
-  font-size: 36px;
+  font-size: 30px;
   color: ${Constants.colors.primary[600]};
   line-height: 35px;
   width: 100%;

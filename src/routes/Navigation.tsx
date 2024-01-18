@@ -10,8 +10,11 @@ import { TouchableWithoutFeedback } from "react-native";
 import ImageWrapper from "../components/utils/ImageWrapper";
 import RegisterScreen from "../screens/Register/RegisterScreen";
 import SecondRegisterScreen from "../screens/Register/SecondRegisterScreen";
+// import ArrowBack from "../../assets/Button/icon-left.png";
 
 const Stack = createStackNavigator();
+
+const ArrowBack = require("../../assets/Button/icon-left.png");
 
 function AppNavigator() {
   return (
@@ -30,9 +33,9 @@ function AppNavigator() {
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper
                 // Remove the 'style' property with the 'cursor' value
-                width={24}
-                height={24}
-                source={require("../../assets/Home/close-icon.png")}
+                width={56}
+                height={56}
+                source={ArrowBack}
               />
             </TouchableWithoutFeedback>
           ),
@@ -49,9 +52,9 @@ function AppNavigator() {
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper
                 // Remove the 'style' property with the 'cursor' value
-                width={24}
-                height={24}
-                source={require("../../assets/Home/close-icon.png")}
+                width={56}
+                height={56}
+                source={ArrowBack}
               />
             </TouchableWithoutFeedback>
           ),
@@ -76,9 +79,9 @@ function AppNavigator() {
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper
                 // Remove the 'style' property with the 'cursor' value
-                width={24}
-                height={24}
-                source={require("../../assets/Home/close-icon.png")}
+                width={56}
+                height={56}
+                source={ArrowBack}
               />
             </TouchableWithoutFeedback>
           ),
@@ -93,11 +96,7 @@ function AppNavigator() {
           title: "Criar uma conta",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
-              <ImageWrapper
-                width={24}
-                height={24}
-                source={require("../../assets/Home/close-icon.png")}
-              />
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
             </TouchableWithoutFeedback>
           ),
         })}
