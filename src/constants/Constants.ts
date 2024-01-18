@@ -1,24 +1,27 @@
 export const headerStyleConfig = { BackgroundColor: "#fff" };
 export const fontWeightConfig = {
-  Regular: "RetniSans-Regular",
-  BoldItalic: "RetniSans-BoldItalic",
-  Italic: "RetniSans-Italic",
-  Light: "RetniSans-Light",
-  LightItalic: "RetniSans-LightItalic",
-  Medium: "RetniSans-Medium",
-  MediumItalic: "RetniSans-MediumItalic",
-  Bold: "RetniSans-Bold",
+  Regular: "Poppins-Regular",
+  BoldItalic: "Poppins-BoldItalic",
+  Italic: "Poppins-Italic",
+  Light: "Poppins-Light",
+  LightItalic: "Poppins-LightItalic",
+  Medium: "Poppins-Medium",
+  MediumItalic: "Poppins-MediumItalic",
+  Bold: "Poppins-Bold",
 };
+
 export const fontsLoadedConfig = {
-  "RetniSans-Regular": require("../../assets/fonts/RetniSans-Regular.ttf"),
-  "RetniSans-BoldItalic": require("../../assets/fonts/RetniSans-BoldItalic.ttf"),
-  "RetniSans-Italic": require("../../assets/fonts/RetniSans-Italic.ttf"),
-  "RetniSans-Light": require("../../assets/fonts/RetniSans-Light.ttf"),
-  "RetniSans-LightItalic": require("../../assets/fonts/RetniSans-LightItalic.ttf"),
-  "RetniSans-Medium": require("../../assets/fonts/RetniSans-Medium.ttf"),
-  "RetniSans-MediumItalic": require("../../assets/fonts/RetniSans-MediumItalic.ttf"),
-  "RetniSans-Bold": require("../../assets/fonts/RetniSans-Bold.ttf"),
+  "Poppins-Regular": require("../../assets/fonts/Poppins-Regular.ttf"),
+  "Poppins-BoldItalic": require("../../assets/fonts/Poppins-BoldItalic.ttf"),
+  "Poppins-Italic": require("../../assets/fonts/Poppins-Italic.ttf"),
+  "Poppins-Light": require("../../assets/fonts/Poppins-Light.ttf"),
+  "Poppins-LightItalic": require("../../assets/fonts/Poppins-LightItalic.ttf"),
+  "Poppins-Medium": require("../../assets/fonts/Poppins-Medium.ttf"),
+  "Poppins-MediumItalic": require("../../assets/fonts/Poppins-MediumItalic.ttf"),
+  "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
 };
+
+
 export const colors = {
   primary: { 900: "#18927C", 600: "#1DBEAB", 400: "#C9E0DD", 200: "#EDFAF8" },
   gray: {
