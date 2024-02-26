@@ -1,7 +1,13 @@
-import { View } from "react-native";
+import {
+  Keyboard,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+  View,
+} from "react-native";
 import ButtonPrimaryDefault from "../../components/utils/ButtonPrimaryDefault";
 import * as Constants from "../../constants/Constants";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import * as Store from "../../redux/store/store";
 import PaddingContent from "../../components/utils/PaddingContent";
 import SafeAreaViewDefault from "../../components/utils/SafeAreaViewLogin";
@@ -10,6 +16,9 @@ import InputWithTitleSubtitle from "../../components/utils/InputWithTitleSubtitl
 import NotificationPopup from "../../components/utils/NotificationPopup";
 import { getIsEmailAvailable } from "../../helper/register/utils";
 import { LoginInfo } from "../../types/LoginInfo";
+import InputWithTitle from "../../components/utils/InputWithTitle";
+import SelectGender from "../../components/register/SelectGender";
+import SelectConvenio from "../../components/register/SelectConvenio";
 
 export default function RegisterScreen({ navigation }: any) {
   const { loginInfo, setLoginInfo }: any = useContext(Store.LoginContext);
@@ -43,21 +52,44 @@ export default function RegisterScreen({ navigation }: any) {
     //   setShowPopup(true);
     // }
   };
+
+  const [keyboardVisible, setKeyboardVisible] = useState(false);
+  useEffect(() => {
+    const keyboardDidShowListener = Keyboard.addListener(
+      "keyboardDidShow",
+      () => {
+        setKeyboardVisible(true);
+      }
+    );
+    const keyboardDidHideListener = Keyboard.addListener(
+      "keyboardDidHide",
+      () => {
+        setKeyboardVisible(false);
+      }
+    );
+
+    return () => {
+      keyboardDidShowListener.remove();
+      keyboardDidHideListener.remove();
+    };
+  }, []);
+
   return (
     <SafeAreaViewDefault>
       <PaddingContent>
-        <View
-          style={{
-            flexDirection: "column",
-            justifyContent: "space-between",
-            height: "100%",
-            alignItems: "center",
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={{
+            flexGrow: 1,
+            paddingBottom: keyboardVisible ? 350 : 20,
           }}
         >
-          <View>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+          >
             <CurrentScreenWidget numberOfFilledWidgets={1} />
             <InputWithTitleSubtitle
-              TextTitle={"Insira seu nome preferido"}
+              TextTitle={"Insira seu nome"}
               TextSubtitle={"Como você deseja ser chamado"}
               InputPlaceHolder={"Nome"}
               onChangeText={(value: any) => handleChange(value, "name")}
@@ -74,21 +106,47 @@ export default function RegisterScreen({ navigation }: any) {
               }}
               value={loginInfo.login}
             />
-          </View>
-          <ButtonPrimaryDefault
-            title={"Continuar"}
-            onPress={() => {
-              onSubmit();
-            }}
-            disabled={isDisabled}
-            style={{
-              backgroundColor: isDisabled
-                ? Constants.colors.gray[700]
-                : Constants.buttonConfig.Default.Primary.Small.BackgroundColor,
-              marginBottom: 30,
-            }}
-          />
-        </View>
+            <InputWithTitle
+              TextTitle={"Telefone"}
+              InputPlaceHolder={"(00) 00000-0000"}
+              onChangeText={(value: any) => {
+                handleChange(value, "login");
+              }}
+              value={loginInfo.login}
+              TextSubtitle={""}
+            />
+            <InputWithTitle
+              TextTitle={"Data de nascimento"}
+              InputPlaceHolder={"xx/xx/xxxx"}
+              onChangeText={(value: any) => {
+                handleChange(value, "login");
+              }}
+              value={loginInfo.login}
+              TextSubtitle={""}
+            />
+            <SelectGender
+              TextTitle={"Gênero"}
+              InputPlaceHolder={"Selecione seu gênero"}
+            />
+            <SelectConvenio
+              TextTitle={"Convenio"}
+              InputPlaceHolder={"Selecione seu gênero"}
+            />
+          </KeyboardAvoidingView>
+        </ScrollView>
+        <ButtonPrimaryDefault
+          title={"Continuar"}
+          onPress={() => {
+            onSubmit();
+          }}
+          disabled={isDisabled}
+          style={{
+            backgroundColor: isDisabled
+              ? Constants.colors.gray[700]
+              : Constants.buttonConfig.Default.Primary.Small.BackgroundColor,
+            marginBottom: 30,
+          }}
+        />
         {showPopup && (
           <NotificationPopup
             title={"Email inválido ou já existente."}

@@ -21,7 +21,6 @@ export const fontsLoadedConfig = {
   "Poppins-Bold": require("../../assets/fonts/Poppins-Bold.ttf"),
 };
 
-
 export const colors = {
   primary: { 900: "#18927C", 600: "#1DBEAB", 400: "#C9E0DD", 200: "#EDFAF8" },
   gray: {
@@ -37,6 +36,7 @@ export const colors = {
     Purple: { 100: "#F0E3FC", 500: "#752CBD" },
     Green: { 100: "#DCF3E5", 500: "#0C663B" },
     Red: { 100: "#FDEDED", 500: "#C51818" },
+    Yellow: { 100: "#FFF4D6", 500: "#E8753D" },
   },
 };
 export const buttonConfig = {
