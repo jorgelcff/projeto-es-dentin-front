@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Animated, TouchableWithoutFeedback } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
-// import CloseIcon from "../../../assets/Home/close-icon.png";
 import ImageWrapper from "./ImageWrapper";
 
 type NotificationPopupProps = {
@@ -73,7 +72,11 @@ export default function NotificationPopup({
     >
       <NotificationTextPopupStyle>{title}</NotificationTextPopupStyle>
       <TouchableWithoutFeedback onPress={() => fadeOut()}>
-        {/* <ImageWrapper source={CloseIcon} width={"24px"} height={"24px"} /> */}
+        <ImageWrapper
+          source={require("../../../assets/Home/close-icon.png")}
+          width={24}
+          height={24}
+        />
       </TouchableWithoutFeedback>
     </NotificationPopupStyle>
   );

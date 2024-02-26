@@ -19,9 +19,9 @@ const ArrowBack = require("../../assets/Button/icon-left.png");
 
 function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
-        name="Home"
+        name="HomeScreen"
         component={HomeScreen}
         options={{
           headerShown: false,
@@ -93,14 +93,6 @@ function AppNavigator() {
             </TouchableWithoutFeedback>
           ),
         })}
-      />
-
-      <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{
-          headerShown: false,
-        }}
       />
 
       <Stack.Screen
