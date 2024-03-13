@@ -38,12 +38,7 @@ function AppNavigator() {
           title: "Entrar",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
-              <ImageWrapper
-                // Remove the 'style' property with the 'cursor' value
-                width={56}
-                height={56}
-                source={ArrowBack}
-              />
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
             </TouchableWithoutFeedback>
           ),
         })}
@@ -57,12 +52,7 @@ function AppNavigator() {
           title: "Redefinir senha",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
-              <ImageWrapper
-                // Remove the 'style' property with the 'cursor' value
-                width={56}
-                height={56}
-                source={ArrowBack}
-              />
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
             </TouchableWithoutFeedback>
           ),
         })}
@@ -84,12 +74,7 @@ function AppNavigator() {
           title: "Criar uma conta",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
-              <ImageWrapper
-                // Remove the 'style' property with the 'cursor' value
-                width={56}
-                height={56}
-                source={ArrowBack}
-              />
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
             </TouchableWithoutFeedback>
           ),
         })}
@@ -103,12 +88,7 @@ function AppNavigator() {
           title: "Dentista",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
-              <ImageWrapper
-                // Remove the 'style' property with the 'cursor' value
-                width={56}
-                height={56}
-                source={ArrowBack}
-              />
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
             </TouchableWithoutFeedback>
           ),
         })}

@@ -122,7 +122,7 @@ const DoctorCard = styled.View`
   width: 100%;
   flex-direction: row;
   justify-content: space-between;
-  border-bottom-width: 1px solid;
+  border-bottom: 1px solid;
   border-color: ${Constants.colors.gray[400]};
 `;
 

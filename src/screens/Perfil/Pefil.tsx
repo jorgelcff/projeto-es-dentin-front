@@ -79,7 +79,7 @@ const ProfileLogOut = () => {
       <Text
         style={{
           fontFamily: Constants.fontConfig.Sm.Medium.FontFamily,
-          fontSize: Constants.fontConfig.Body.Medium.FontSize,
+          fontSize: 16,
           color: `${Constants.colors.primary[600]}`,
           marginRight: 8,
         }}
