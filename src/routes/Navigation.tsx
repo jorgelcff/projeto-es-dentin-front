@@ -11,6 +11,8 @@ import ImageWrapper from "../components/utils/ImageWrapper";
 import RegisterScreen from "../screens/Register/RegisterScreen";
 import SecondRegisterScreen from "../screens/Register/SecondRegisterScreen";
 import DentistaScreen from "../screens/Dentista/Dentista";
+import AgendamentoScreen from "../screens/Agendamento/Agendamento";
+import ConfirmarConsultaScreen from "../screens/ConfirmarConsulta/ConfirmarConsulta";
 // import ArrowBack from "../../assets/Button/icon-left.png";
 
 const Stack = createStackNavigator();
@@ -19,7 +21,7 @@ const ArrowBack = require("../../assets/Button/icon-left.png");
 
 function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName="HomeScreen">
+    <Stack.Navigator initialRouteName="AgendamentoScreen">
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
@@ -86,6 +88,34 @@ function AppNavigator() {
         options={({ navigation }) => ({
           headerTitle: "Dentista",
           title: "Dentista",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="AgendamentoScreen"
+        component={AgendamentoScreen}
+        options={({ navigation }) => ({
+          headerTitle: "Agendar Consulta",
+          title: "Agendar Consulta",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="ConfirmarConsultaScreen"
+        component={ConfirmarConsultaScreen}
+        options={({ navigation }) => ({
+          headerTitle: "Confirmar Consulta",
+          title: "Confirmar Consulta",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper width={56} height={56} source={ArrowBack} />

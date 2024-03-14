@@ -8,8 +8,8 @@ import CardBank from "../../../assets/Dentista/bank-card-2-line.png";
 import ImageWrapper from "../../components/utils/ImageWrapper";
 import ButtonPrimaryDefault from "../../components/utils/ButtonPrimaryDefault";
 type DentistaScreenProps = {
-  route: RouteProp<RootStackParamList, "DentistaScreen">;
-  navigation: StackNavigationProp<RootStackParamList, "DentistaScreen">;
+  route: RouteProp<any, "DentistaScreen">;
+  navigation: StackNavigationProp<any, "DentistaScreen">;
 };
 
 const DentistaInfo = styled.View`
