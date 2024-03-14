@@ -21,7 +21,7 @@ const ArrowBack = require("../../assets/Button/icon-left.png");
 
 function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName="AgendamentoScreen">
+    <Stack.Navigator initialRouteName="ConfirmarConsultaScreen">
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
