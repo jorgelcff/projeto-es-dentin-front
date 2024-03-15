@@ -13,6 +13,7 @@ import SecondRegisterScreen from "../screens/Register/SecondRegisterScreen";
 import DentistaScreen from "../screens/Dentista/Dentista";
 import AgendamentoScreen from "../screens/Agendamento/Agendamento";
 import ConfirmarConsultaScreen from "../screens/ConfirmarConsulta/ConfirmarConsulta";
+import MinhasConsultasScreen from "../screens/MinhasConsultas/MinhasConsultas";
 // import ArrowBack from "../../assets/Button/icon-left.png";
 
 const Stack = createStackNavigator();
@@ -21,7 +22,7 @@ const ArrowBack = require("../../assets/Button/icon-left.png");
 
 function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName="ConfirmarConsultaScreen">
+    <Stack.Navigator initialRouteName="MinhasConsultas">
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
@@ -116,6 +117,20 @@ function AppNavigator() {
         options={({ navigation }) => ({
           headerTitle: "Confirmar Consulta",
           title: "Confirmar Consulta",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+
+<Stack.Screen
+        name="MinhasConsultas"
+        component={MinhasConsultasScreen}
+        options={({ navigation }) => ({
+          headerTitle: "Minhas Consultas",
+          title: "Minhas Consultas",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper width={56} height={56} source={ArrowBack} />

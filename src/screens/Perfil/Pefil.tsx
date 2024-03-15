@@ -65,7 +65,7 @@ const Settings = styled(TouchableOpacity)`
 
 const PerfilScreen = () => {
   return (
-    <View style={{ flex: 1, alignItems: "center", padding: 20 }}>
+    <View style={{ flex: 1, alignItems: "center", padding: 20, backgroundColor: "white" }}>
       <HeaderProfile />
       <ProfileActions />
       <ProfileLogOut />
