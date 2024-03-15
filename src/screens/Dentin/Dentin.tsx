@@ -33,7 +33,7 @@ const DentinImg = styled.Image``;
 
 const DentinScreen = () => {
   return (
-    <View style={{ flex: 1, alignItems: "center", padding: 20 }}>
+    <View style={{ flex: 1, alignItems: "center", padding: 20, backgroundColor: "white" }}>
       <DentinTitle>Dentin</DentinTitle>
       <View style={{ width: "100%", marginTop: 16 }}>
         <DentinSubTitle>Olá,</DentinSubTitle>
