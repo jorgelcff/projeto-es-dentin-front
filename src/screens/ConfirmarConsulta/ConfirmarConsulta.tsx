@@ -2,6 +2,11 @@ import { RouteProp } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import React from "react";
 import { Button, View, Text } from "react-native";
+import styled from "styled-components/native";
+import * as Constants from "../../constants/Constants";
+import ImageWrapper from "../../components/utils/ImageWrapper";
+import MedicalClinic from "../../../assets/Dentista/hospital-line.png";
+import CardBank from "../../../assets/Dentista/bank-card-2-line.png";
 
 type DentistaScreenProps = {
   route: RouteProp<any, "ConfirmarConsultaScreen">;
@@ -9,14 +14,18 @@ type DentistaScreenProps = {
 };
 
 const consultaInfo = {
-  nomeDentista: "Dr. Daniel Zamboni",
-  especialidade: "Odontopediatria",
-  endereco: {
-    rua: "R. do Giriquiti",
-    numero: "140",
-    bairro: "Boa Vista",
-    cidade: "Recife",
-    estado: "PE",
+  dentista: {
+    id: 1,
+    nome: "Dr. Daniel Zmboni",
+    especialidade: "Odontologia Geral",
+    avaliacao: 4.5,
+    clinica: "Clínica Odontológica ABC",
+    endereco: {
+      rua: "Rua A",
+      numero: 123,
+      cidade: "São Paulo",
+      estado: "SP",
+    },
   },
   agendamento: {
     diaSemana: "Quarta",
@@ -25,10 +34,69 @@ const consultaInfo = {
   },
 };
 
+const Cards = styled.View`
+  padding: 20px;
+  gap: 20px;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+`;
+
+const ClinicaCard = styled.View`
+  padding: 20px;
+  border-radius: 5px;
+  gap: 10px;
+  background-color: ${Constants.colors.gray[100]};
+  border: 1px solid ${Constants.colors.gray[400]};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const ClinicaName = styled.Text`
+  font-size: 14px;
+  font-family: ${Constants.fontConfig.Xsm.Regular.FontFamily};
+  color: ${Constants.colors.gray[700]};
+`;
+
+const ClinicaAddress = styled.Text`
+  font-size: 12px;
+  font-family: ${Constants.fontConfig.Xsm.Regular.FontFamily};
+  color: ${Constants.colors.gray[700]};
+`;
+
+const ConvenioCard = styled.View`
+  padding: 20px;
+  border-radius: 5px;
+  gap: 10px;
+  background-color: ${Constants.colors.gray[100]};
+  border: 1px solid ${Constants.colors.gray[400]};
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
+const ConveniosTitle = styled.Text`
+  font-family: ${Constants.fontConfig.Xsm.Regular.FontFamily};
+  color: ${Constants.colors.gray[700]};
+  font-size: 14px;
+  font-weight: bold;
+`;
+
+const Convenios = styled.Text`
+  font-size: 12px;
+  font-family: ${Constants.fontConfig.Xsm.Regular.FontFamily};
+  color: ${Constants.colors.gray[700]};
+`;
+
+const ClinicIcon = styled.View`
+  width: 30px;
+  height: 30px;
+`;
 // ...
 
-const ResumoConsulta = () => {
-  // Aqui você pode adicionar o código para exibir o resumo das informações da consulta
+const ResumoConsulta = ({ route }: DentistaScreenProps) => {
+  // const { dentista } = route.params!;
   return (
     // Adicione o código JSX para exibir o resumo das informações
     <View>
@@ -36,14 +104,36 @@ const ResumoConsulta = () => {
       <Text>Nome do dentista: {consultaInfo.nomeDentista}</Text>
       <Text>Especialidade: {consultaInfo.especialidade}</Text>
       <Text>
-        Endereço: {consultaInfo.endereco.rua}, {consultaInfo.endereco.numero} -{" "}
-        {consultaInfo.endereco.bairro}, {consultaInfo.endereco.cidade} -{" "}
-        {consultaInfo.endereco.estado}
-      </Text>
-      <Text>
         Agendamento: {consultaInfo.agendamento.diaSemana},{" "}
         {consultaInfo.agendamento.dia}, {consultaInfo.agendamento.hora}
       </Text>
+
+      <Cards>
+        <ClinicaCard>
+          <ClinicIcon>
+            <ImageWrapper width={30} height={30} source={MedicalClinic} />
+          </ClinicIcon>
+          <View style={{ gap: 3 }}>
+            <ClinicaName>{consultaInfo.dentista.clinica}</ClinicaName>
+            <ClinicaAddress>
+              {consultaInfo.dentista.endereco.rua},
+              {consultaInfo.dentista.endereco.numero} -{" "}
+              {consultaInfo.dentista.endereco.cidade} -{" "}
+              {consultaInfo.dentista.endereco.estado}
+            </ClinicaAddress>
+          </View>
+        </ClinicaCard>
+
+        <ConvenioCard>
+          <ClinicIcon>
+            <ImageWrapper width={30} height={30} source={CardBank} />
+          </ClinicIcon>
+          <View style={{ gap: 3 }}>
+            <ConveniosTitle>Convênios Aceitos </ConveniosTitle>
+            <Convenios>Unimed - Amil - Bradesco</Convenios>
+          </View>
+        </ConvenioCard>
+      </Cards>
     </View>
   );
 };
