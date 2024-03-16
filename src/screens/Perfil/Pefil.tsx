@@ -1,11 +1,12 @@
 // screens/HomeScreen.js
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, Button } from "react-native";
 import styled from "styled-components/native";
 import HeaderProfile from "../../components/Pefil/HeaderProfile";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Constants from "../../constants/Constants";
+import { PacienteService } from "../../services/PacienteService";
 
 const EditProfile = styled(TouchableOpacity)`
   width: 100%;
@@ -65,7 +66,14 @@ const Settings = styled(TouchableOpacity)`
 
 const PerfilScreen = () => {
   return (
-    <View style={{ flex: 1, alignItems: "center", padding: 20, backgroundColor: "white" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        padding: 20,
+        backgroundColor: "white",
+      }}
+    >
       <HeaderProfile />
       <ProfileActions />
       <ProfileLogOut />
@@ -96,6 +104,13 @@ const ProfileLogOut = () => {
 };
 
 const ProfileActions = () => {
+  const paciente = new PacienteService();
+
+  const getPacienteByID = async () => {
+    const response = await paciente.getPaciente(1);
+    console.log(response);
+  };
+
   return (
     <View style={{ padding: 20, flex: 1 }}>
       <EditProfile onPress={() => {}}>
