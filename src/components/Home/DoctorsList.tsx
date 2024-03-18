@@ -1,116 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
+import { DenTinService } from "../../services/DenTinService";
+import { DentistaService } from "../../services/DentistaService";
+import { Dentista } from "../../models/Dentista";
 
-const dentistas = [
-  {
-    id: 1,
-    nome: "Dr. Daniel Zmboni",
-    especialidade: "Odontologia Geral",
-    avaliacao: 4.5,
-    clinica: "Clínica Odontológica ABC",
-    endereco: {
-      rua: "Rua A",
-      numero: 123,
-      cidade: "São Paulo",
-      estado: "SP",
-    },
-  },
-  {
-    id: 2,
-    nome: "Dr. Allyson Ryan",
-    especialidade: "Ortodontia",
-    avaliacao: 4.2,
-    clinica: "Clínica Odontológica XYZ",
-    endereco: {
-      rua: "Rua B",
-      numero: 456,
-      cidade: "Rio de Janeiro",
-      estado: "RJ",
-    },
-  },
-  {
-    id: 3,
-    nome: "Dra. Camila Silva",
-    especialidade: "Implantodontia",
-    avaliacao: 4.8,
-    clinica: "Clínica Odontológica DEF",
-    endereco: {
-      rua: "Rua C",
-      numero: 789,
-      cidade: "Belo Horizonte",
-      estado: "MG",
-    },
-  },
-  {
-    id: 4,
-    nome: "Dr. Lucas Oliveira",
-    especialidade: "Endodontia",
-    avaliacao: 4.6,
-    clinica: "Clínica Odontológica GHI",
-    endereco: {
-      rua: "Rua D",
-      numero: 1011,
-      cidade: "Curitiba",
-      estado: "PR",
-    },
-  },
-  {
-    id: 5,
-    nome: "Dra. Isabela Santos",
-    especialidade: "Periodontia",
-    avaliacao: 4.4,
-    clinica: "Clínica Odontológica JKL",
-    endereco: {
-      rua: "Rua E",
-      numero: 1213,
-      cidade: "Porto Alegre",
-      estado: "RS",
-    },
-  },
-  {
-    id: 6,
-    nome: "Dr. Rafael Costa",
-    especialidade: "Ortodontia",
-    avaliacao: 4.7,
-    clinica: "Clínica Odontológica MNO",
-    endereco: {
-      rua: "Rua F",
-      numero: 1415,
-      cidade: "Salvador",
-      estado: "BA",
-    },
-  },
-  {
-    id: 7,
-    nome: "Dra. Juliana Almeida",
-    especialidade: "Odontopediatria",
-    avaliacao: 4.3,
-    clinica: "Clínica Odontológica PQR",
-    endereco: {
-      rua: "Rua G",
-      numero: 1617,
-      cidade: "Fortaleza",
-      estado: "CE",
-    },
-  },
-  {
-    id: 8,
-    nome: "Dr. Gustavo Lima",
-    especialidade: "Cirurgia Bucomaxilofacial",
-    avaliacao: 4.9,
-    clinica: "Clínica Odontológica STU",
-    endereco: {
-      rua: "Rua H",
-      numero: 1819,
-      cidade: "Recife",
-      estado: "PE",
-    },
-  },
-];
 
 const Doctors = styled.View`
   width: 100%;
@@ -155,9 +52,28 @@ const TextHeader = styled.Text`
 
 const DoctorsList = () => {
   const navigation = useNavigation();
+  const [dentistas, setDentistas] = useState<Dentista[]> ();
 
-  const gotoDentista = (dentista: any) => {
-    navigation.navigate("DentistaScreen", { dentista: dentista });
+  useEffect(() => {
+    const fetchDentistas = async () => {
+      try {
+        const dentistaService = new DentistaService();
+        const response = await dentistaService.getDentistas();
+        const fetchedDentistas = response.data;
+        setDentistas(fetchedDentistas);
+        console.log(fetchedDentistas)
+        console.log(dentistas)
+
+      } catch (error) {
+        console.error("Erro ao buscar os dentistas:", error);
+      }
+    };
+
+    fetchDentistas();
+  }, []);
+  const gotoDentista = (dentista: Dentista) => {
+    navigation.navigate("DentistaScreen", { dentista: dentista } );
+    console.log(dentista)
   };
 
   const renderItem = ({ item }: any) => (
@@ -165,7 +81,7 @@ const DoctorsList = () => {
       <DoctorCard>
         <DoctorInfo>
           <DoctorName>{item.nome}</DoctorName>
-          <DoctorSpecialty>{item.especialidade}</DoctorSpecialty>
+          <DoctorSpecialty>{item.especialidadeNN}</DoctorSpecialty>
         </DoctorInfo>
         <DoctorInfo style={{ alignItems: "center" }}>
           <Ionicons
@@ -173,7 +89,6 @@ const DoctorsList = () => {
             size={16}
             color={Constants.colors.support.Yellow[500]}
           />
-          <DoctorName>{item.avaliacao}</DoctorName>
         </DoctorInfo>
       </DoctorCard>
     </TouchableOpacity>
@@ -185,7 +100,7 @@ const DoctorsList = () => {
       <FlatList
         data={dentistas}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id.toString()}
+        keyExtractor={(item) => item.id}
       />
     </Doctors>
   );

@@ -14,11 +14,15 @@ export class PacienteService extends GenericService<Paciente> {
     return this.post("pacientes", body);
   }
 
-  public async putPaciente(body: Paciente): Promise<Paciente | void> {
-    return this.put("pacientes", body);
+  public async putPaciente(id: number, paciente: Paciente): Promise<Paciente | void> {
+    return this.put(`pacientes/${id}`, paciente);
   }
 
   public async deletePaciente(id: number): Promise<Paciente | void> {
     return this.delete(`pacientes/${id}`);
+  }
+
+  public async getPacientesByNome(nome: string): Promise<Paciente | Paciente[]> {
+    return this.get(`pacientes/nome/${nome}`);
   }
 }
