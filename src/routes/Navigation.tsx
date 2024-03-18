@@ -22,7 +22,7 @@ const ArrowBack = require("../../assets/Button/icon-left.png");
 
 function AppNavigator() {
   return (
-    <Stack.Navigator initialRouteName="MinhasConsultas">
+    <Stack.Navigator initialRouteName="HomeScreen">
       <Stack.Screen
         name="HomeScreen"
         component={HomeScreen}
@@ -84,6 +84,20 @@ function AppNavigator() {
       />
 
       <Stack.Screen
+        name="SecondRegisterScreen"
+        component={SecondRegisterScreen}
+        options={({ navigation }) => ({
+          headerTitle: "Criar uma conta",
+          title: "Criar uma conta",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+
+      <Stack.Screen
         name="DentistaScreen"
         component={DentistaScreen}
         options={({ navigation }) => ({
@@ -125,7 +139,7 @@ function AppNavigator() {
         })}
       />
 
-<Stack.Screen
+      <Stack.Screen
         name="MinhasConsultas"
         component={MinhasConsultasScreen}
         options={({ navigation }) => ({

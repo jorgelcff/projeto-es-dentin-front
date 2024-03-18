@@ -3,7 +3,9 @@ import { Picker } from "@react-native-picker/picker"; // Import Picker from the 
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import Input from "../utils/Input";
-import { useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import * as Store from "../../redux/store/store";
+import { PacienteCreate } from "../../models/Paciente";
 
 interface InputWithTitleProps extends TextInputProps {
   TextTitle: string;
@@ -48,6 +50,12 @@ export default function SelectGender({
   InputPlaceHolder,
   ...props
 }: InputWithTitleProps) {
+  const { registerInfo, setRegisterInfo }: any = useContext(
+    Store.RegisterContext
+  );
+  const handleChange = (value: PacienteCreate, type: any) => {
+    setRegisterInfo((prev: PacienteCreate) => ({ ...prev, [type]: value }));
+  };
   const [selectedLanguage, setSelectedLanguage] = useState("0");
   return (
     <InputWithTitle>
@@ -55,8 +63,8 @@ export default function SelectGender({
       <PickerStyle
         selectedValue={selectedLanguage as string}
         placeholder={InputPlaceHolder}
-        onValueChange={(itemValue, itemIndex) => {
-          setSelectedLanguage(itemValue as string);
+        onValueChange={(itemValue: any, itemIndex) => {
+          handleChange(itemValue, "sexo");
         }}
         dropdownIconColor={Constants.colors.primary[900]}
         collapsable={true}
@@ -74,22 +82,22 @@ export default function SelectGender({
         <Picker.Item
           style={{ color: Constants.colors.primary[900], fontSize: 16 }}
           label="Masculino"
-          value="1"
+          value="M"
         />
         <Picker.Item
           style={{ color: Constants.colors.primary[900], fontSize: 16 }}
           label="Feminino"
-          value="2"
+          value="F"
         />
         <Picker.Item
           style={{ color: Constants.colors.primary[900], fontSize: 16 }}
           label="Outro"
-          value="3"
+          value="O"
         />
         <Picker.Item
           style={{ color: Constants.colors.primary[900], fontSize: 16 }}
           label="Prefiro não dizer"
-          value="4"
+          value="N"
         />
       </PickerStyle>
     </InputWithTitle>

@@ -5,6 +5,7 @@ import AppNavigator from "./Navigation";
 import * as Store from "../redux/store/store";
 import * as SecureStore from "expo-secure-store";
 import { LoginInfo } from "../types/LoginInfo";
+import { PacienteCreate } from "../models/Paciente";
 
 LogBox.ignoreLogs(["Require cycle:"]);
 
@@ -20,24 +21,34 @@ async function getValueFor(key: string) {
 
 export default function Routes() {
   const [isLogin, setIsLogin] = useState(false);
-  const [loginInfo, setLoginInfo] = useState<LoginInfo>({
-    login: "",
-    password: "",
-    authToken: "",
-    loginDate: "",
-    averageConsumption: "",
-    fuelPerLiter: "",
+  const [registerInfo, setRegisterInfo] = useState<PacienteCreate>({
+    cpf: "",
+    nome: "",
+    email: "",
+    senha: "",
+    telefone: "",
+    dataNasc: "",
+    sexo: "",
+    cidade: "",
+    uf: "",
+    bairro: "",
+    rua: "",
+    endereco: "",
+    fkConvenio: 0,
+    cardiaco: false,
+    diabetico: false,
+    alergico: null,
   });
-  const saveAuthTokenLocal = async (value: LoginInfo) => {
+  const saveAuthTokenLocal = async (value: PacienteCreate) => {
     if (Platform.OS === "web") {
-      localStorage.setItem("loginInfo", JSON.stringify(value));
+      localStorage.setItem("registerInfo", JSON.stringify(value));
     } else {
-      await SecureStore.setItemAsync("loginInfo", JSON.stringify(value));
+      await SecureStore.setItemAsync("registerInfo", JSON.stringify(value));
     }
   };
 
   useEffect(() => {
-    const value = getValueFor("loginInfo")
+    const value = getValueFor("registerInfo")
       .then((response) => {
         const currentDate = new Date();
         const loginDate = new Date(response.loginDate);
@@ -47,7 +58,7 @@ export default function Routes() {
         const jwtDaysExpiration = 1;
         const isTokenExpired = difDateInHour > jwtDaysExpiration;
         // if (response.authToken && !isTokenExpired) {
-        //   setLoginInfo(response);
+        //   setRegisterInfo(response);
         //   setIsLogin(true);
         // } else if (response.authToken && isTokenExpired) {
         //   const newToken = (async () =>
@@ -56,7 +67,7 @@ export default function Routes() {
         //       response.password
         //     )
         //       .then((res) => {
-        //         setLoginInfo({
+        //         setRegisterInfo({
         //           login: response.login,
         //           password: response.password,
         //           authToken: res.data.token,
@@ -77,17 +88,17 @@ export default function Routes() {
   }, []);
 
   useEffect(() => {
-    saveAuthTokenLocal(loginInfo);
-  }, [loginInfo]);
+    saveAuthTokenLocal(registerInfo);
+  }, [registerInfo]);
 
   return (
     <>
       <NavigationContainer>
-        <Store.LoginContext.Provider
-          value={{ loginInfo, setLoginInfo, isLogin, setIsLogin }}
+        <Store.RegisterContext.Provider
+          value={{ registerInfo, setRegisterInfo, isLogin, setIsLogin }}
         >
           <AppNavigator />
-        </Store.LoginContext.Provider>
+        </Store.RegisterContext.Provider>
       </NavigationContainer>
     </>
   );

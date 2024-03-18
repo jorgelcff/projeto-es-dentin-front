@@ -2,8 +2,9 @@ import { View, TextInputProps, Text } from "react-native";
 import { Picker } from "@react-native-picker/picker"; // Import Picker from the correct package
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
-import Input from "../utils/Input";
-import { useRef, useState } from "react";
+import * as Store from "../../redux/store/store";
+import { useContext, useRef, useState } from "react";
+import { PacienteCreate } from "../../models/Paciente";
 
 interface InputWithTitleProps extends TextInputProps {
   TextTitle: string;
@@ -48,6 +49,14 @@ export default function SelectConvenio({
   InputPlaceHolder,
   ...props
 }: InputWithTitleProps) {
+  const { registerInfo, setRegisterInfo }: any = useContext(
+    Store.RegisterContext
+  );
+
+  const handleChange = (value: PacienteCreate, type: any) => {
+    setRegisterInfo((prev: PacienteCreate) => ({ ...prev, [type]: value }));
+  };
+
   const [selectedLanguage, setSelectedLanguage] = useState("0");
   return (
     <InputWithTitle>
@@ -55,11 +64,10 @@ export default function SelectConvenio({
       <PickerStyle
         selectedValue={selectedLanguage as string}
         placeholder={InputPlaceHolder}
-        onValueChange={(itemValue, itemIndex) => {
-          setSelectedLanguage(itemValue as string);
+        onValueChange={(value: any, itemIndex: number) => {
+          handleChange(value, "convenio");
         }}
         dropdownIconColor={Constants.colors.primary[900]}
-        
         color={`${Constants.inputConfig.Ontouch.Settings.Color}`}
       >
         <Picker.Item
@@ -73,22 +81,12 @@ export default function SelectConvenio({
         <Picker.Item
           style={{ color: Constants.colors.primary[900], fontSize: 16 }}
           label="001"
-          value="1"
+          value={1}
         />
         <Picker.Item
           style={{ color: Constants.colors.primary[900], fontSize: 16 }}
           label="002"
-          value="2"
-        />
-        <Picker.Item
-          style={{ color: Constants.colors.primary[900], fontSize: 16 }}
-          label="005"
-          value="3"
-        />
-        <Picker.Item
-          style={{ color: Constants.colors.primary[900], fontSize: 16 }}
-          label="004"
-          value="4"
+          value={2}
         />
       </PickerStyle>
     </InputWithTitle>
