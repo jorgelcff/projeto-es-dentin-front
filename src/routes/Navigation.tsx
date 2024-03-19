@@ -14,7 +14,11 @@ import DentistaScreen from "../screens/Dentista/Dentista";
 import AgendamentoScreen from "../screens/Agendamento/Agendamento";
 import ConfirmarConsultaScreen from "../screens/ConfirmarConsulta/ConfirmarConsulta";
 import MinhasConsultasScreen from "../screens/MinhasConsultas/MinhasConsultas";
+import RelatorioScreenOne from "../screens/Relatorio/RelatorioScreenOne";
+import RelatorioScreenTwo from "../screens/Relatorio/RelatorioScreenTwo";
+import RelatorioScreenThree from "../screens/Relatorio/RelatorioScreenThree";
 // import ArrowBack from "../../assets/Button/icon-left.png";
+import RelatorioScreenFour from '../screens/Relatorio/RelatorioScreenFour';
 
 const Stack = createStackNavigator();
 
@@ -145,6 +149,59 @@ function AppNavigator() {
         options={({ navigation }) => ({
           headerTitle: "Minhas Consultas",
           title: "Minhas Consultas",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+
+      <Stack.Screen
+        name="Relatorio1"
+        component={RelatorioScreenOne}
+        options={({ navigation }) => ({
+          headerTitle: "DenTalk",
+          title: "DenTalk",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Relatorio2"
+        component={RelatorioScreenTwo}
+        options={({ navigation }) => ({
+          headerTitle: "DenTalk",
+          title: "DenTalk",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Relatorio3"
+        component={RelatorioScreenThree}
+        options={({ navigation }) => ({
+          headerTitle: "DenTalk",
+          title: "DenTalk",
+          headerLeft: () => (
+            <TouchableWithoutFeedback onPress={navigation.goBack}>
+              <ImageWrapper width={56} height={56} source={ArrowBack} />
+            </TouchableWithoutFeedback>
+          ),
+        })}
+      />
+      <Stack.Screen
+        name="Relatorio4"
+        component={RelatorioScreenFour}
+        options={({ navigation }) => ({
+          headerTitle: "DenTalk",
+          title: "DenTalk",
           headerLeft: () => (
             <TouchableWithoutFeedback onPress={navigation.goBack}>
               <ImageWrapper width={56} height={56} source={ArrowBack} />

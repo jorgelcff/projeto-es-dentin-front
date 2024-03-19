@@ -13,6 +13,7 @@ import ImageWrapper from "../../components/utils/ImageWrapper";
 import Tooltip from "react-native-walkthrough-tooltip";
 import { useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { useNavigation } from "@react-navigation/native";
 
 const DentinTitle = styled.Text`
   font-family: ${Constants.fontConfig.Body.Bold.FontFamily};
@@ -45,8 +46,14 @@ const DentinImg = styled.Image``;
 const DentinScreen = () => {
   const [showTip, setTip] = useState(false);
 
+  const navigate = useNavigation();
+
   const width = Dimensions.get("window").width;
   const height = Dimensions.get("window").height;
+
+  const nextStep = () => {
+    navigate.navigate("Relatorio1");
+  };
   return (
     <View
       style={{
@@ -119,7 +126,7 @@ const DentinScreen = () => {
             justifyContent: "center",
             alignItems: "center",
           }}
-          onPress={() => setTip(true)}
+          onPress={() => nextStep()}
         >
           <Ionicons name="chatbubbles" size={35} color={"white"} />
         </TouchableOpacity>

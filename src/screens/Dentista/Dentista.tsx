@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { RouteProp } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 import { StackNavigationProp } from "@react-navigation/stack";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
@@ -7,6 +7,9 @@ import MedicalClinic from "../../../assets/Dentista/hospital-line.png";
 import CardBank from "../../../assets/Dentista/bank-card-2-line.png";
 import ImageWrapper from "../../components/utils/ImageWrapper";
 import ButtonPrimaryDefault from "../../components/utils/ButtonPrimaryDefault";
+import { ConsultorioService } from "../../services/ConsultorioService";
+import { useEffect, useState } from "react";
+import { Consultorio } from "../../models/Consultorio";
 type DentistaScreenProps = {
   route: RouteProp<any, "DentistaScreen">;
   navigation: StackNavigationProp<any, "DentistaScreen">;
@@ -134,6 +137,27 @@ const ProcedimentList = styled.Text`
 
 const DentistaScreen = ({ route }: DentistaScreenProps) => {
   const { dentista } = route.params;
+  const navigation = useNavigation();
+  const consultorioService = new ConsultorioService();
+  const [consultorio, setConsultorio] = useState<Consultorio>();
+
+  const getConsultorioInfo = async () => {
+    console.log(dentista);
+    const response = await consultorioService.getConsultorio(
+      dentista.pkDentista
+    );
+    setConsultorio(response.data);
+  };
+
+  const onSubmit = async () => {
+    navigation.navigate("AgendamentoScreen", {
+      dentista: dentista,
+      consultorio: consultorio,
+    });
+  };
+  useEffect(() => {
+    getConsultorioInfo();
+  }, []);
 
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
@@ -141,26 +165,28 @@ const DentistaScreen = ({ route }: DentistaScreenProps) => {
         <DentistaImage source={{ uri: dentista.imagem }} />
         <DentistaInfoTexts>
           <DentistaName>{dentista.nome}</DentistaName>
-          <DentistaSpeciality>{dentista.especialidade}</DentistaSpeciality>
+          <DentistaSpeciality>{dentista.especialidadeNN}</DentistaSpeciality>
           <DentistaLocation>
-            {dentista.endereco.cidade}, {dentista.endereco.estado}
+            {dentista.cidade}, {dentista.uf}
           </DentistaLocation>
-          <DentistaRate>{dentista.avaliacao}</DentistaRate>
+          {/* <DentistaRate>{dentista.avaliacao}</DentistaRate> */}
         </DentistaInfoTexts>
       </DentistaInfo>
       <Cards>
-        <ClinicaCard>
-          <ClinicIcon>
-            <ImageWrapper width={30} height={30} source={MedicalClinic} />
-          </ClinicIcon>
-          <View style={{ gap: 3 }}>
-            <ClinicaName>{dentista.clinica}</ClinicaName>
-            <ClinicaAddress>
-              {dentista.endereco.rua},{dentista.endereco.numero} -{" "}
-              {dentista.endereco.cidade} - {dentista.endereco.estado}
-            </ClinicaAddress>
-          </View>
-        </ClinicaCard>
+        {consultorio && (
+          <ClinicaCard>
+            <ClinicIcon>
+              <ImageWrapper width={30} height={30} source={MedicalClinic} />
+            </ClinicIcon>
+            <View style={{ gap: 3 }}>
+              <ClinicaName>{consultorio.nome}</ClinicaName>
+              <ClinicaAddress>
+                {consultorio.rua},{consultorio.endereco} - {consultorio.cidade}{" "}
+                - {consultorio.uf}
+              </ClinicaAddress>
+            </View>
+          </ClinicaCard>
+        )}
 
         <ConvenioCard>
           <ClinicIcon>
@@ -173,13 +199,16 @@ const DentistaScreen = ({ route }: DentistaScreenProps) => {
         </ConvenioCard>
       </Cards>
       <Procediments>
-        <ProcedimentTitle>Procedimentos</ProcedimentTitle>
+        <ProcedimentTitle>Especialidades</ProcedimentTitle>
         <ProcedimentList>
-          Clareamento dental, Limpeza, Extração e Restauração
+          {dentista.especialidadeNN} - {dentista.especialidade2}
         </ProcedimentList>
       </Procediments>
-      <View style={{ padding: 20, width: "100%", paddingHorizontal: 50 }}>
-        <ButtonPrimaryDefault title="Agendar consulta" />
+      <View style={{ padding: 20, width: "100%", paddingHorizontal: 20 }}>
+        <ButtonPrimaryDefault
+          title="Agendar consulta"
+          onPress={() => onSubmit()}
+        />
       </View>
     </View>
   );

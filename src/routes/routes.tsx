@@ -6,6 +6,7 @@ import * as Store from "../redux/store/store";
 import * as SecureStore from "expo-secure-store";
 import { LoginInfo } from "../types/LoginInfo";
 import { PacienteCreate } from "../models/Paciente";
+import { Relatorio } from "../models/Relatorio";
 
 LogBox.ignoreLogs(["Require cycle:"]);
 
@@ -21,6 +22,27 @@ async function getValueFor(key: string) {
 
 export default function Routes() {
   const [isLogin, setIsLogin] = useState(false);
+
+  const [formInfo, setFormInfo] = useState<Relatorio>({
+    fkDentin: 0,
+    dataEmissao: new Date().toString(),
+    dataReferencia: new Date().toString(),
+    alimentacao: "",
+    dores: "",
+    higiene: {
+      frequenciaEscovacao: "",
+      usoFioDental: "",
+    },
+    historico: "",
+    cuidadoAparelho: "",
+    acidente: "",
+  });
+
+  const [loginInfo, setLoginInfo] = useState<LoginInfo>({
+    login: "",
+    password: "",
+    authToken: "",
+  });
   const [registerInfo, setRegisterInfo] = useState<PacienteCreate>({
     cpf: "",
     nome: "",
@@ -97,7 +119,13 @@ export default function Routes() {
         <Store.RegisterContext.Provider
           value={{ registerInfo, setRegisterInfo, isLogin, setIsLogin }}
         >
-          <AppNavigator />
+          <Store.LoginContext.Provider
+            value={{ loginInfo, setLoginInfo, isLogin, setIsLogin }}
+          >
+            <Store.FormContext.Provider value={{ formInfo, setFormInfo }}>
+              <AppNavigator />
+            </Store.FormContext.Provider>
+          </Store.LoginContext.Provider>
         </Store.RegisterContext.Provider>
       </NavigationContainer>
     </>

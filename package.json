@@ -34,6 +34,7 @@
     "react-native-text-input-mask": "^3.2.0",
     "react-native-walkthrough-tooltip": "^1.6.0",
     "react-native-web": "~0.19.6",
+    "sessionstorage": "^0.1.0",
     "styled-components": "^6.1.8"
   },
   "devDependencies": {

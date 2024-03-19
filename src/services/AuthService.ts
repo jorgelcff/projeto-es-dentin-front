@@ -13,8 +13,8 @@ export class AuthService {
   });
   async login(username: string, password: string): Promise<boolean> {
     const body = {
-      username: "kminchelle",
-      password: "0lelplR",
+      username: username,
+      password: password,
     };
 
     console.log("body", JSON.stringify(body));
@@ -26,7 +26,8 @@ export class AuthService {
       });
       console.log("response", response);
       if (response.status === 200) {
-        await AsyncStorage.setItem("token", response.data.token);
+        await AsyncStorage.setItem("token", response.data.access_token);
+        await AsyncStorage.setItem("usuario", response.data.usuario);
         this.loggedIn = true;
         return true;
       } else {
