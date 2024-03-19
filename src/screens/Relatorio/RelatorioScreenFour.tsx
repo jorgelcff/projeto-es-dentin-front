@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import ButtonPrimaryDefault from "../../components/utils/ButtonPrimaryDefault";
 import * as Constants from "../../constants/Constants";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import PaddingContent from "../../components/utils/PaddingContent";
 import SafeAreaViewDefault from "../../components/utils/SafeAreaViewLogin";
 import CurrentScreenWidget from "../../components/DentinForm/CurrentScreenWidget";
@@ -9,41 +9,42 @@ import NotificationPopup from "../../components/utils/NotificationPopup";
 import { RadioButton, Text } from "react-native-paper";
 import styled from "styled-components/native";
 import { RelatorioService } from "../../services/RelatorioService";
+import * as Store from "../../redux/store/store";
 
 export default function RelatorioScreenFour({ navigation }: any) {
+  const { formInfo, setFormInfo }: any = useContext(Store.FormContext);
   const [showPopup, setShowPopup] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
   const [answer4, setAnswer4] = useState("0");
-  const onSubmit = async () => {
-    //const dentinId = sessionStorage.getItem("dentinId");
-    const Q1 = await sessionStorage.getItem("Q1");
-    const Q2 = await sessionStorage.getItem("Q2");
-    const Q3 = await sessionStorage.getItem("Q3");
-    const Q4 = answer4;
 
+  const onSubmit = async () => {
+    setIsDisabled(true);
     const questions = {
       fkDentin: 2,
-      alimentacao: Q3,
-      dores: Q4,
+      alimentacao: formInfo.alimentacao,
+      dores: answer4,
       higiene: {
-        frequenciaEscovacao: Q1,
-        usoFioDental: Q2,
+        frequenciaEscovacao: formInfo.higiene.frequenciaEscovacao,
+        usoFioDental: formInfo.higiene.usoFioDental,
       },
       dataEmissao: new Date(),
       dataReferencia: new Date(),
     };
 
+    console.log("questions", questions);
     const relatorioService = new RelatorioService();
 
     try {
-      console.log("questions", questions);
       const response = await relatorioService.postRelatorio(questions);
-      console.log(response);
+      if (response.status == "201") {
+        navigation.navigate("Dentin", {
+          statusDenTin: response.data.statusDenTin,
+        });
+      }
+      console.log(response.data);
     } catch (error) {
       console.log("Erro na postagem de formulário:", error);
     }
-
-    setIsDisabled(true);
   };
 
   return (
@@ -71,7 +72,10 @@ export default function RelatorioScreenFour({ navigation }: any) {
               }}
             >
               <RadioButton.Group
-                onValueChange={(newValue: any) => setAnswer4(newValue)}
+                onValueChange={(newValue: any) => {
+                  setAnswer4(newValue);
+                  setIsDisabled(false);
+                }}
                 value={answer4}
               >
                 <RadioButton.Item

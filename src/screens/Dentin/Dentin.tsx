@@ -11,9 +11,9 @@ import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import ImageWrapper from "../../components/utils/ImageWrapper";
 import Tooltip from "react-native-walkthrough-tooltip";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
+import { RouteProp, useNavigation } from "@react-navigation/native";
 
 const DentinTitle = styled.Text`
   font-family: ${Constants.fontConfig.Body.Bold.FontFamily};
@@ -43,8 +43,16 @@ const LineBreak = styled.Text`
 
 const DentinImg = styled.Image``;
 
-const DentinScreen = () => {
+interface DentinScreenProps {
+  route: RouteProp<any, "DentinScreen">;
+}
+
+const DentinScreen = ({ route }: DentinScreenProps) => {
+  const { statusDenTin } = route.params ? route.params : "";
   const [showTip, setTip] = useState(false);
+  const [dentin, setDentin] = useState("");
+  const [dentinIcon, setDentinIcon] = useState<any>();
+  const [dentinImg, setDentinImg] = useState<any>();
 
   const navigate = useNavigation();
 
@@ -54,6 +62,12 @@ const DentinScreen = () => {
   const nextStep = () => {
     navigate.navigate("Relatorio1");
   };
+
+  useEffect(() => {
+    console.log("dentin setado");
+    setDentin(statusDenTin);
+  }, [statusDenTin]);
+
   return (
     <View
       style={{
@@ -80,16 +94,20 @@ const DentinScreen = () => {
           isVisible={showTip}
           content={
             <View>
-              <Text>O DenTIn está feliz! Continue assim!</Text>
+              {dentin != "Sujo" ? (
+                <Text>O DenTIn está feliz! Continue assim!</Text>
+              ) : (
+                <Text>Ah não! O DenTIn está mal. Reforce seus cuidados.</Text>
+              )}
             </View>
           }
           onClose={() => setTip(false)}
-          allowChildInteraction={false}
+          allowChildInteraction={false} 
           placement="bottom"
         >
           <TouchableOpacity
             style={{
-              backgroundColor: "#1DBEAB",
+              backgroundColor: dentin != "Sujo" ? "#1DBEAB" : "#981C1C",
               width: 70,
               height: 70,
               marginTop: 20,
@@ -98,10 +116,17 @@ const DentinScreen = () => {
               justifyContent: "center",
               alignItems: "center",
             }}
-            onPress={() => setTip(true)}
+            onPress={() => {
+              setTip(true);
+              console.log(statusDenTin);
+            }}
           >
             <ImageWrapper
-              source={require("../../../assets/Dentin/smile-face.png")}
+              source={
+                dentin != "Sujo"
+                  ? require("../../../assets/Dentin/smile-face.png")
+                  : require("../../../assets/Dentin/bad-face.png")
+              }
               width={40}
               height={40}
               resizeMode={"contain"}
@@ -109,7 +134,11 @@ const DentinScreen = () => {
           </TouchableOpacity>
         </Tooltip>
         <ImageWrapper
-          source={require("../../../assets/Dentin/dentin.png")}
+          source={
+            dentin != "Sujo"
+              ? require("../../../assets/Dentin/dentin.png")
+              : require("../../../assets/Dentin/badDentin.png")
+          }
           width={width - 120}
           height={width - 120}
           resizeMode={"contain"}
@@ -134,5 +163,4 @@ const DentinScreen = () => {
     </View>
   );
 };
-
 export default DentinScreen;

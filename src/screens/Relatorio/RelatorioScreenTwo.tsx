@@ -14,24 +14,24 @@ export default function RelatorioScreenTwo({ navigation }: any) {
   const { formInfo, setFormInfo }: any = useContext(Store.FormContext);
 
   const [showPopup, setShowPopup] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const handleChange = (value: string, type: string, type2: string) => {
+    console.log(type, type2, value);
     setFormInfo((prev: any) => ({
       ...prev,
       [type]: {
+        ...prev.higiene,
         [type2]: value,
       },
     }));
+    console.log(formInfo);
   };
   const [answer2, setAnswer2] = useState("0");
 
   const onSubmit = async () => {
-    handleChange(answer2, "higiene", "frequenciaEscovacao");
-    await sessionStorage.setItem("Q2", answer2);
+    handleChange(answer2, "higiene", "usoFioDental");
     navigation.navigate("Relatorio3");
-
-    setIsDisabled(true);
   };
 
   return (
@@ -58,7 +58,10 @@ export default function RelatorioScreenTwo({ navigation }: any) {
               }}
             >
               <RadioButton.Group
-                onValueChange={(newValue: any) => setAnswer2(newValue)}
+                onValueChange={(newValue: any) => {
+                  setAnswer2(newValue);
+                  setIsDisabled(false);
+                }}
                 value={answer2}
               >
                 <RadioButton.Item

@@ -13,7 +13,7 @@ import styled from "styled-components/native";
 export default function RelatorioScreenOne({ navigation }: any) {
   const { formInfo, setFormInfo }: any = useContext(Store.FormContext);
   const [showPopup, setShowPopup] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const [answer1, setAnswer1] = useState("0");
 
@@ -21,16 +21,16 @@ export default function RelatorioScreenOne({ navigation }: any) {
     setFormInfo((prev: any) => ({
       ...prev,
       [type]: {
+        ...prev.higiene,
         [type2]: value,
       },
     }));
+    console.log(formInfo);
   };
 
   const onSubmit = async () => {
     handleChange(answer1, "higiene", "frequenciaEscovacao");
     navigation.navigate("Relatorio2");
-
-    setIsDisabled(true);
   };
 
   return (
@@ -59,7 +59,10 @@ export default function RelatorioScreenOne({ navigation }: any) {
               }}
             >
               <RadioButton.Group
-                onValueChange={(newValue: any) => setAnswer1(newValue)}
+                onValueChange={(newValue: any) => {
+                  setAnswer1(newValue);
+                  setIsDisabled(false);
+                }}
                 value={answer1}
               >
                 <RadioButton.Item

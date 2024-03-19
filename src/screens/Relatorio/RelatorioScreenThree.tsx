@@ -1,7 +1,7 @@
 import { View } from "react-native";
 import ButtonPrimaryDefault from "../../components/utils/ButtonPrimaryDefault";
 import * as Constants from "../../constants/Constants";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import PaddingContent from "../../components/utils/PaddingContent";
 import SafeAreaViewDefault from "../../components/utils/SafeAreaViewLogin";
@@ -10,17 +10,26 @@ import CurrentScreenWidget from "../../components/DentinForm/CurrentScreenWidget
 import NotificationPopup from "../../components/utils/NotificationPopup";
 import { RadioButton } from "react-native-paper";
 import styled from "styled-components/native";
+import * as Store from "../../redux/store/store";
 
 export default function RelatorioScreenThree({ navigation }: any) {
+  const { formInfo, setFormInfo }: any = useContext(Store.FormContext);
   const [showPopup, setShowPopup] = useState(false);
-  const [isDisabled, setIsDisabled] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
 
   const [answer3, setAnswer3] = useState("0");
-  const onSubmit = async () => {
-    await sessionStorage.setItem("Q3", answer3);
-    navigation.navigate("Relatorio4");
 
-    setIsDisabled(true);
+  const handleChange = (value: string, type: string) => {
+    setFormInfo((prev: any) => ({
+      ...prev,
+      [type]: value,
+    }));
+    console.log(formInfo);
+  };
+
+  const onSubmit = async () => {
+    handleChange(answer3, "alimentacao");
+    navigation.navigate("Relatorio4");
   };
 
   return (
@@ -47,7 +56,10 @@ export default function RelatorioScreenThree({ navigation }: any) {
               }}
             >
               <RadioButton.Group
-                onValueChange={(newValue: any) => setAnswer3(newValue)}
+                onValueChange={(newValue: any) => {
+                  setAnswer3(newValue);
+                  setIsDisabled(false);
+                }}
                 value={answer3}
               >
                 <RadioButton.Item
