@@ -6,28 +6,30 @@ export class AuthService {
   private loggedIn: boolean = false;
   private http: HttpHandle = new HttpHandle();
   private axios = axios.create({
-    baseURL: "https://dummyjson.com/",
+    baseURL: "https://dentin.fly.dev/",
     headers: {
       "Content-Type": "application/json",
     },
   });
   async login(username: string, password: string): Promise<boolean> {
     const body = {
-      username: username,
-      password: password,
+      email: username,
+      senha: password,
+      plataforma: "app",
     };
 
     console.log("body", JSON.stringify(body));
     console.log("getAxios", this.http.getAxios().getUri());
 
     try {
-      const response = await this.axios.post("auth/login", {
-        body: JSON.stringify(body),
-      });
+      const response = await this.axios.post("usuarios/login", body);
       console.log("response", response);
       if (response.status === 200) {
         await AsyncStorage.setItem("token", response.data.access_token);
-        await AsyncStorage.setItem("usuario", response.data.usuario);
+        await AsyncStorage.setItem(
+          "usuario",
+          JSON.stringify(response.data.usuario)
+        );
         this.loggedIn = true;
         return true;
       } else {

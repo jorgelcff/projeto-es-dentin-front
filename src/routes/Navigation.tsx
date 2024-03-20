@@ -18,7 +18,7 @@ import RelatorioScreenOne from "../screens/Relatorio/RelatorioScreenOne";
 import RelatorioScreenTwo from "../screens/Relatorio/RelatorioScreenTwo";
 import RelatorioScreenThree from "../screens/Relatorio/RelatorioScreenThree";
 // import ArrowBack from "../../assets/Button/icon-left.png";
-import RelatorioScreenFour from '../screens/Relatorio/RelatorioScreenFour';
+import RelatorioScreenFour from "../screens/Relatorio/RelatorioScreenFour";
 
 const Stack = createStackNavigator();
 
