@@ -104,7 +104,7 @@ export default function RelatorioScreenFour({ navigation }: any) {
           </View>
 
           <ButtonPrimaryDefault
-            title={"Continuar"}
+            title={isDisabled ? "" : "Continuar"}
             onPress={() => {
               onSubmit();
             }}

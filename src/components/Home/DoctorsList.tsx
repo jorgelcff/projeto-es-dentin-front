@@ -100,7 +100,7 @@ const DoctorsList = () => {
       <FlatList
         data={dentistas}
         renderItem={renderItem}
-        keyExtractor={(item) => item.id}
+        keyExtractor={(item) => item.pkDentista}
       />
     </Doctors>
   );

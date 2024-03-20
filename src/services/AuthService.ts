@@ -44,6 +44,8 @@ export class AuthService {
   }
 
   logout(): void {
+    AsyncStorage.removeItem("access_token");
+    AsyncStorage.removeItem("usuario");
     this.loggedIn = false;
   }
 

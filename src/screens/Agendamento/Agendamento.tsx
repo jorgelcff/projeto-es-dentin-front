@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { View, Text, Button, TouchableOpacity } from "react-native";
+import { View, Text, Button, TouchableOpacity, Platform } from "react-native";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
@@ -105,6 +105,11 @@ const AgendamentoScreen = ({ route }: AgendamentoScreenProps) => {
           paddingHorizontal: 20,
         }}
       >
+        {Platform.OS === "android" && (
+          <Text style={{ color: Constants.colors.gray[700] }}>
+            {tipoConsulta}
+          </Text>
+        )}
         <RNPickerSelect
           onValueChange={(value) => setTipoConsulta(value)}
           placeholder={{ label: "Clique aqui para selecionar", value: "" }}
@@ -118,7 +123,6 @@ const AgendamentoScreen = ({ route }: AgendamentoScreenProps) => {
               borderColor: "gray",
               borderRadius: 4,
               color: "black",
-              paddingRight: 30, // to ensure the text is never behind the icon
             },
             inputAndroid: {
               fontSize: 16,
@@ -128,7 +132,6 @@ const AgendamentoScreen = ({ route }: AgendamentoScreenProps) => {
               borderColor: "purple",
               borderRadius: 8,
               color: "black",
-              paddingRight: 30, // to ensure the text is never behind the icon
             },
 
             placeholder: {
@@ -157,9 +160,22 @@ const AgendamentoScreen = ({ route }: AgendamentoScreenProps) => {
       <DentistaName>Selecione a data da consulta</DentistaName>
       <View>
         <TouchableOpacity onPress={() => setShowDatePicker(true)}>
-          <Text>{date.toLocaleString().split(" ")[0]}</Text>
+          {Platform.OS === "android" && (
+            <Text>{date.toLocaleString().split(" ")[0]}</Text>
+          )}
         </TouchableOpacity>
-        {showDatePicker && (
+        {Platform.OS === "android" ? (
+          showDatePicker && (
+            <DateTimePicker
+              testID="dateTimePicker"
+              value={date}
+              mode="date"
+              is24Hour={true}
+              display="calendar"
+              onChange={handleDateChange}
+            />
+          )
+        ) : (
           <DateTimePicker
             testID="dateTimePicker"
             value={date}

@@ -22,7 +22,7 @@ export default function ForgotPasswordScreen({ navigation }: any) {
           title={"Enviar email de redefinição"}
           style={{ marginTop: 8 }}
           onPress={() => {
-            console.log("pressed");
+            alert("Em desenvolvimento");
           }}
         />
       </PaddingContent>

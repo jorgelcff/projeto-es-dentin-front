@@ -20,6 +20,7 @@ import SelectConvenio from "../../components/register/SelectConvenio";
 import { PacienteCreate } from "../../models/Paciente";
 import { RadioButton, Text } from "react-native-paper";
 import styled from "styled-components/native";
+import InputWithTitleMask from "../../components/utils/InputWithTitleMask";
 
 export default function RegisterScreen({ navigation }: any) {
   const { registerInfo, setRegisterInfo }: any = useContext(
@@ -106,30 +107,32 @@ export default function RegisterScreen({ navigation }: any) {
               }}
             />
 
-            <InputWithTitleSubtitle
+            <InputWithTitleMask
               TextTitle={"CPF"}
               InputPlaceHolder={"000.000.000-00"}
               onChangeText={(value: any) => {
                 handleChange(value, "cpf");
               }}
               TextSubtitle={""}
+              mask={"cpf"}
             />
-            <InputWithTitleSubtitle
+            <InputWithTitleMask
               TextTitle={"Telefone"}
               InputPlaceHolder={"(00) 00000-0000"}
               onChangeText={(value: any) => {
                 handleChange(value, "telefone");
               }}
               TextSubtitle={""}
+              mask={"telephone"}
             />
-            <InputWithTitleSubtitle
+            <InputWithTitleMask
               TextTitle={"Data de nascimento"}
               InputPlaceHolder={"xx/xx/xxxx"}
               onChangeText={(value: any) => {
                 const data = transformData(value);
                 handleChange(data, "dataNasc");
               }}
-              TextSubtitle={""}
+              mask={"date"}
             />
             <InputWithTitle
               TextTitle={"Cidade"}

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, TextInput, Button } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
-import ImageWrapper from "../utils/ImageWrapper";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Title = styled.Text`
   font-family: ${Constants.fontConfig.Body.Bold.FontFamily};
@@ -46,17 +47,34 @@ const Header = styled.View`
 `;
 
 const PefilHeader = () => {
+  const [usuario, setUsuario] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      const usuarioData = await AsyncStorage.getItem("usuario");
+      if (usuarioData) {
+        const parsedUsuario = JSON.parse(usuarioData);
+        setUsuario(parsedUsuario);
+      }
+    };
+
+    fetchUsuario();
+  }, []);
   return (
     <Header>
       <Title>Perfil</Title>
       <ProfileContent>
-        <ImageWrapper
-          width={50}
-          height={50}
-          source={require("../../../assets/Profile/avatar.png")}
-        />
-        <ProfileName>Melk Victor</ProfileName>
-        <ProfileMail>melk@victor.com</ProfileMail>
+        <Ionicons name="person-circle-outline" size={50} color="black" />
+        {usuario && (
+          <View
+            style={{
+              alignItems: "center",
+            }}
+          >
+            <ProfileName>{usuario.nome}</ProfileName>
+            <ProfileMail>{usuario.email}</ProfileMail>
+          </View>
+        )}
       </ProfileContent>
     </Header>
   );

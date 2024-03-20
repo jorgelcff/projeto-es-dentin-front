@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, TextInput, Button } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import HeaderHomeInput from "./HeaderHomeInput";
 import HeaderHomeSelect from "./HeaderHomeSelect";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const Title = styled.Text`
   font-family: ${Constants.fontConfig.Body.Bold.FontFamily};
@@ -59,10 +60,24 @@ const Header = styled.View`
 `;
 
 const HomeHeader = () => {
+  const [usuario, setUsuario] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchUsuario = async () => {
+      const usuarioData = await AsyncStorage.getItem("usuario");
+      if (usuarioData) {
+        const parsedUsuario = JSON.parse(usuarioData);
+        setUsuario(parsedUsuario);
+      }
+    };
+
+    fetchUsuario();
+  }, []);
+
   return (
     <Header>
       <Title>Dentin</Title>
-      <SubTitle>Bem-vindo, Melk Victor!</SubTitle>
+      <SubTitle>Bem-vindo, {usuario && usuario.nome}</SubTitle>
       <FindDoctor>
         <FindDoctorText>Encontre um dentista agora</FindDoctorText>
         <FindeDoctorInputs>

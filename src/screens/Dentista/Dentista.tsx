@@ -10,6 +10,7 @@ import ButtonPrimaryDefault from "../../components/utils/ButtonPrimaryDefault";
 import { ConsultorioService } from "../../services/ConsultorioService";
 import { useEffect, useState } from "react";
 import { Consultorio } from "../../models/Consultorio";
+import Ionicons from "@expo/vector-icons/Ionicons";
 type DentistaScreenProps = {
   route: RouteProp<any, "DentistaScreen">;
   navigation: StackNavigationProp<any, "DentistaScreen">;
@@ -162,7 +163,11 @@ const DentistaScreen = ({ route }: DentistaScreenProps) => {
   return (
     <View style={{ flex: 1, alignItems: "center" }}>
       <DentistaInfo>
-        <DentistaImage source={{ uri: dentista.imagem }} />
+        <Ionicons
+          name="person-circle-outline"
+          size={110}
+          color={Constants.colors.gray[600]}
+        />
         <DentistaInfoTexts>
           <DentistaName>{dentista.nome}</DentistaName>
           <DentistaSpeciality>{dentista.especialidadeNN}</DentistaSpeciality>

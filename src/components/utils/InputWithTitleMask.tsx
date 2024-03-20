@@ -2,13 +2,12 @@ import { View, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import Input from "./Input";
-import TextInputMask from "react-native-text-input-mask";
 
 interface InputWithTitleProps extends TextInputProps {
   TextTitle: string;
   TextSubtitle: string;
   InputPlaceHolder: string;
-  mask: string;
+  mask: "cpf" | "telephone" | "date";
 }
 
 const InputTitle = styled.View`
@@ -29,12 +28,29 @@ export default function InputWithTitleMask({
   InputPlaceHolder,
   ...props
 }: InputWithTitleProps) {
+  const applyMask = (value: string) => {
+    switch (mask) {
+      case "cpf":
+        return value.replace(/^(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+      case "telephone":
+        return value.replace(/^(\d{2})(\d{5})(\d{4})$/, "$1 $2-$3");
+      case "date":
+        return value.replace(/^(\d{2})(\d{2})(\d{2})$/, "$1/$2/$3");
+      default:
+        return value;
+    }
+  };
+
   return (
     <InputTitle>
       <Title>{TextTitle}</Title>
-      <TextInputMask
+      <Input
+        maxLength={mask === "cpf" ? 14 : mask === "telephone" ? 15 : 8}
         placeholder={InputPlaceHolder}
-        mask={mask}
+        onChangeText={(value) => {
+          const maskedValue = applyMask(value);
+          props.onChangeText?.(maskedValue);
+        }}
         style={{
           marginBottom: 24,
           color: Constants.inputConfig.Ontouch.Settings.Color,

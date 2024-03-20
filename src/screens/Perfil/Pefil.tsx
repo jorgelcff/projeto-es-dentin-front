@@ -7,6 +7,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import * as Constants from "../../constants/Constants";
 import { PacienteService } from "../../services/PacienteService";
+import { AuthService } from "../../services/AuthService";
+import { useNavigation } from "@react-navigation/native";
 
 const EditProfile = styled(TouchableOpacity)`
   width: 100%;
@@ -82,8 +84,14 @@ const PerfilScreen = () => {
 };
 
 const ProfileLogOut = () => {
+  const navigate = useNavigation();
+  const logOut = async () => {
+    const authService = new AuthService();
+    authService.logout();
+    navigate.navigate("Start");
+  };
   return (
-    <LogoutButton>
+    <LogoutButton onPress={() => logOut()}>
       <Text
         style={{
           fontFamily: Constants.fontConfig.Sm.Medium.FontFamily,
@@ -104,16 +112,13 @@ const ProfileLogOut = () => {
 };
 
 const ProfileActions = () => {
-  const paciente = new PacienteService();
-
-  const getPacienteByID = async () => {
-    const response = await paciente.getPaciente(1);
-    console.log(response);
-  };
-
   return (
     <View style={{ padding: 20, flex: 1 }}>
-      <EditProfile onPress={() => {}}>
+      <EditProfile
+        onPress={() => {
+          alert("Em desenvolvimento");
+        }}
+      >
         <Ionicons
           name="pencil-sharp"
           size={24}
@@ -121,7 +126,11 @@ const ProfileActions = () => {
         />
         <ButtonText>Editar meus dados</ButtonText>
       </EditProfile>
-      <ProfileHistory onPress={() => {}}>
+      <ProfileHistory
+        onPress={() => {
+          alert("Em desenvolvimento");
+        }}
+      >
         <Ionicons
           name="calendar"
           size={24}
@@ -134,7 +143,11 @@ const ProfileActions = () => {
           </ButtonInfo>
         </ButtonTexts>
       </ProfileHistory>
-      <Settings onPress={() => {}}>
+      <Settings
+        onPress={() => {
+          alert("Em desenvolvimento");
+        }}
+      >
         <Ionicons
           name="settings-sharp"
           size={24}

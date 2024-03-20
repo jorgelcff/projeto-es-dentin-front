@@ -184,6 +184,7 @@ const ResumoConsulta = ({
 // ...
 const ConfirmarConsultaScreen = ({ route }: DentistaScreenProps) => {
   const { date, hour, tipoConsulta, dentista, consultorio } = route.params;
+  const [isDisable, setIsDisable] = useState(true);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
   const [infoConsulta, setInfoConsulta] = useState<any>();
@@ -201,6 +202,7 @@ const ConfirmarConsultaScreen = ({ route }: DentistaScreenProps) => {
     navigation.navigate("HomeScreen");
   };
   const confirmarConsulta = async () => {
+    setIsDisable(true);
     const usuarioSave = await AsyncStorage.getItem("usuario");
     const usuario = JSON.parse(usuarioSave!);
     console.log(usuario, date, hour, tipoConsulta, dentista, consultorio);
@@ -262,7 +264,8 @@ const ConfirmarConsultaScreen = ({ route }: DentistaScreenProps) => {
         style={{ padding: 20, width: "100%", paddingHorizontal: 20, bottom: 0 }}
       >
         <ButtonPrimaryDefault
-          title="Confirmar agenda"
+          disabled={isDisable}
+          title={isDisable ? "Carregando..." : "Confirmar agenda"}
           onPress={() => confirmarConsulta()}
         />
       </View>
