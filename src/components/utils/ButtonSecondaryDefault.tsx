@@ -34,7 +34,7 @@ const ButtonSecondaryDefaultStyle = styled.TouchableOpacity`
 const ButtonText = styled.Text`
   font-size: ${Constants.fontConfig.Body.Bold.FontSize};
   font-family: ${Constants.fontConfig.Body.Bold.FontFamily};
-};`;
+`;
 
 export const ButtonSecundaryDefault: React.FC<ButtonSecondaryDefaultProps> = ({
   title,

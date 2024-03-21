@@ -1,13 +1,13 @@
-import { View } from "react-native";
+import { View, TextInputProps } from "react-native";
 import styled from "styled-components/native";
 import * as Constants from "../../constants/Constants";
 import Input from "./Input";
 
-type InputWithTitleSubtitleProps = {
+interface InputWithTitleSubtitleProps extends TextInputProps {
   TextTitle: string;
   TextSubtitle: string;
   InputPlaceHolder: string;
-};
+}
 
 const InputWithTitleSubtitleStyle = styled.View`
   background-color: ${Constants.colors.gray[0]};

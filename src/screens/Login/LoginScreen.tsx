@@ -6,17 +6,42 @@ import * as Store from "../../redux/store/store";
 import PaddingContent from "../../components/utils/PaddingContent";
 import SafeAreaViewDefault from "../../components/utils/SafeAreaViewLogin";
 import NotificationPopup from "../../components/utils/NotificationPopup";
-import { CommonActions } from "@react-navigation/native";
+import { AuthService } from "../../services/AuthService";
 import * as Constants from "../../constants/Constants";
 
 export default function LoginScreen({ navigation }: any) {
+  const authService = new AuthService();
   const [showPopup, setShowPopup] = useState(false);
   const [isDisabled, setIsDisabled] = useState(false);
   const { loginInfo, setLoginInfo, setIsLogin }: any = useContext(
     Store.LoginContext
   );
+
   const handleChange = async (value: any, type: any) => {
     setLoginInfo((prev: any) => ({ ...prev, [type]: value }));
+  };
+
+  const handleLogin = async () => {
+    try {
+      setIsDisabled(true);
+      if (loginInfo.login && loginInfo.password) {
+        const response = await authService.login(
+          loginInfo.login,
+          loginInfo.password
+        );
+        if (response) {
+          navigation.navigate("HomeScreen");
+        } else {
+          setShowPopup(true);
+        }
+      } else {
+        setShowPopup(true);
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    } finally {
+      setIsDisabled(false);
+    }
   };
 
   return (
@@ -42,7 +67,7 @@ export default function LoginScreen({ navigation }: any) {
         <ButtonPrimaryDefault
           title="Entrar"
           testID="test"
-          onPress={() => navigation.navigate("HomeScreen")}
+          onPress={() => handleLogin()}
           disabled={isDisabled}
           style={{
             backgroundColor: isDisabled

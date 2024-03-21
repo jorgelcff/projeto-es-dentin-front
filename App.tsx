@@ -4,6 +4,7 @@ import { fontsLoadedConfig } from "./src/constants/Constants";
 import * as SplashScreen from "expo-splash-screen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import Routes from "./src/routes/routes";
+import { PaperProvider } from "react-native-paper";
 import { View } from "react-native";
 
 export default function App() {
@@ -27,8 +28,10 @@ export default function App() {
   }
   return (
     <SafeAreaProvider>
-      <View onLayout={onLayoutRootView} />
-      <Routes />
+      <PaperProvider>
+        <View onLayout={onLayoutRootView} />
+        <Routes />
+      </PaperProvider>
     </SafeAreaProvider>
   );
 }
