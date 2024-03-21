@@ -184,7 +184,7 @@ const ResumoConsulta = ({
 // ...
 const ConfirmarConsultaScreen = ({ route }: DentistaScreenProps) => {
   const { date, hour, tipoConsulta, dentista, consultorio } = route.params;
-  const [isDisable, setIsDisable] = useState(true);
+  const [isDisable, setIsDisable] = useState(false);
   const [modalVisible, setModalVisible] = useState(false);
   const navigation = useNavigation();
   const [infoConsulta, setInfoConsulta] = useState<any>();
